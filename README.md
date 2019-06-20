@@ -2,10 +2,10 @@
 
 ### Consul config:
 
-Weather:
+  - Weather:
 
-Key/Value => nerdbay/weather
+> Key/Value => nerdbay/weather
 
-Articles
+  - Articles
 
-Key/Value => nerdbay/weather
+> Key/Value => nerdbay/articles
