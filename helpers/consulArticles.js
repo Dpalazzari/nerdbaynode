@@ -1,15 +1,11 @@
 let consul = require('consul')();
 
-const weatherKey = () => {
+const ArticlesKey = () => {
   return new Promise((resolve, reject) => {
     consul.kv.get('nerdbay/articles', (err, config) => {
-      if (err) {
-        reject(error);
-      } else {
-        resolve(JSON.parse(config.Value));
-      }
+      (err) ? reject(error) : resolve(JSON.parse(config.Value))
     })
   })
 }
 
-module.exports = weatherKey;
+module.exports = ArticlesKey;
