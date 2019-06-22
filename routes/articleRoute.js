@@ -2,7 +2,7 @@ module.exports = (app) => {
   const consulArticles = require("../helpers/consulArticles");
   const requestor = require('../services/requestor');
 
-  app.get("/api/v1/nerdbay/:source", (req, res) => {
+  app.get("/api/v1/nerdbay/articles/:source", (req, res) => {
     let source = req.params.source;
     let uriSourceKey;
 
