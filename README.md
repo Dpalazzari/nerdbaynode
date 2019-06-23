@@ -13,3 +13,7 @@
   - Movies
 
 > Key/Value => nerdbay/movie
+
+  - Twitch
+
+> Key/Value => nerdbay/twitch
