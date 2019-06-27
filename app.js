@@ -10,7 +10,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.locals.title = 'Deadpool backend';
 
-let routes = require('./routes/routes')
+const routes = require('./routes/routes')
 routes(app);
+
 
 module.exports = app;
