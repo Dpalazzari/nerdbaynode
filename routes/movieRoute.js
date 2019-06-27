@@ -30,15 +30,13 @@ module.exports = async (app) => {
     }
   }, interval);
 
+  const movieData = await cacheGetter(myCache, 'movies');
+
   app.get("/api/v1/nerdbay/movies", (req, res) => {
-    cacheGetter(myCache, 'movies')
-    .then(movieData => {
-      res.send(movieData);
-    }).catch(err => {
-      console.log('cache is null...')
+    (movieData) ? res.send(movieData) :
+      console.log('cache is null...');
       requestor(movieUrl).then(data => {
-        res.send(data)
-      }).catch(err => res.status(404).send(err.response))
-    })
+        res.send(data);
+      }).catch(err => res.status(404).send(err.response));
   })
 }
