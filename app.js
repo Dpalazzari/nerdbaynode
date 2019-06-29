@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
+const util = require('util');
 const app = express();
 
 app.use(logger('dev'));
@@ -16,14 +17,13 @@ const client = redis.createClient({
 });
 
 client.on('error', (err) => {
-  console.log('Error ' + err);
+  util.error('Error ' + err);
 })
 
 const { promisify } = require('util');
 const getAsync = promisify(client.get).bind(client);
 const setAsync = promisify(client.set).bind(client);
 const delAsync = promisify(client.del).bind(client);
-
 
 const runCache = require('./src/cache/sync');
 runCache(setAsync, delAsync);
