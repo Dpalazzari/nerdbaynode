@@ -25,14 +25,14 @@ const setAsync = promisify(client.set).bind(client);
 const delAsync = promisify(client.del).bind(client);
 
 
-const runCache = require('./cache/sync');
+const runCache = require('./src/cache/sync');
 runCache(setAsync, delAsync);
 
 setInterval(() => {
   runCache(setAsync, delAsync);
 }, 60 * 60 * 1000);
 
-let routes = require('./routes/routes');
+let routes = require('./src/routes/routes');
 routes(app, getAsync);
 
 module.exports = app;
