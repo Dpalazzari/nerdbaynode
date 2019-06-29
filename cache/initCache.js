@@ -1,9 +1,8 @@
 const requestor = require('../services/requestor');
 const cacher = require('./cacher');
 const NodeCache = require("node-cache");
-let myCache = new NodeCache();
 
-const cacheSetter = async (url, key) => {
+const cacheSetter = async(url, key, myCache = new NodeCache()) => {
   try {
     const data = await requestor(url);
     myCache = await cacher(myCache, key, data);
@@ -19,7 +18,7 @@ const cacheSetter = async (url, key) => {
 const cacheResetter = (cache, key) => {
   return new Promise((resolve, reject) => {
     value = cache.del(key);
-    (value === 1) ? resolve(value) : reject(null)
+    (value === 1) ? resolve(cache) : reject(null)
   })
 }
 
