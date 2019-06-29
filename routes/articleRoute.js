@@ -1,35 +1,30 @@
-module.exports = (app) => {
-  const consulArticles = require("../helpers/consulArticles");
-  const requestor = require('../services/requestor');
-
+module.exports = (app, get) => {
   app.get("/api/v1/nerdbay/articles/:source", (req, res) => {
     let source = req.params.source;
-    let uriSourceKey;
+    let redisKey;
 
     switch (source){
       case 'ign':
-        uriSourceKey = 'ign';
+        redisKey = 'ign';
         break;
       case 'reddit':
-        uriSourceKey = 'reddit-r-all';
+        redisKey = 'reddit-r-all';
         break;
       case 'hackernews':
-        uriSourceKey = 'hacker-news';
+        redisKey = 'hacker-news';
         break;
       case 'espn':
-        uriSourceKey = 'espn';
+        redisKey = 'espn';
         break;
       default:
-        uriSourceKey = '';
+        redisKey = '';
         break;
     }
 
-    (uriSourceKey === '') ? res.status(404).send('Invalid route.') :
-    consulArticles().then(config => {
-      const articlesUrl = `https://newsapi.org/v1/articles?apiKey=${config}&source=${uriSourceKey}&sortBy=top`
-      requestor(articlesUrl).then(data => {
-        res.send(data)
-      }).catch(err => res.status(404).send(err.response))
+    (redisKey === '') ? res.status(404).send('Invalid route.') :
+    get(redisKey).then(data => {
+      const parsedData = JSON.parse(data);
+      res.send(parsedData);
     }).catch(err => res.status(404).send(err))
   })
 }

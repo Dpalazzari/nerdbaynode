@@ -1,13 +1,15 @@
-module.exports = (app) => {
-  const consulTwitch = require("../helpers/consulTwitch");
-  const requestor = require('../services/requestor');
-
+module.exports = (app, get) => {
   app.get("/api/v1/nerdbay/twitch", (req, res) => {
-    consulTwitch().then(config => {
-      const twitchUrl = `https://api.twitch.tv/kraken/streams?client_id=${config}`
-      requestor(twitchUrl).then(data => {
-        res.send(data)
-      }).catch(err => res.status(404).send(err.response))
+    get('twitch').then(data=> {
+      const parsedData = JSON.parse(data);
+      res.send(parsedData);
+    }).catch(err => res.status(404).send(err))
+  })
+
+  app.get("/api/v1/nerdbay/twitch/top", (req, res) => {
+    get('twitch').then(data => {
+      const parsedData = JSON.parse(data);
+      res.send(parsedData.streams[0]);
     }).catch(err => res.status(404).send(err))
   })
 }
