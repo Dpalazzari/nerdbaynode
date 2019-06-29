@@ -4,17 +4,15 @@ module.exports = (app, get) => {
     let redisKey;
 
     switch (source){
+      case 'espn':
       case 'ign':
-        redisKey = 'ign';
+        redisKey = source;
         break;
       case 'reddit':
         redisKey = 'reddit-r-all';
         break;
       case 'hackernews':
         redisKey = 'hacker-news';
-        break;
-      case 'espn':
-        redisKey = 'espn';
         break;
       default:
         redisKey = '';
