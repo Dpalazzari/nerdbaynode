@@ -23,4 +23,8 @@ const runTestCache = async (setAsync, delAsync) => {
   }
 }
 
+test('Redis stores data', () => {
+  
+})
+
 module.exports = runTestCache;

@@ -7,7 +7,6 @@ const app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.locals.title = 'Deadpool backend';
 
 const redis = require('redis');

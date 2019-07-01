@@ -10,7 +10,7 @@
     "debug": "NODE_ENV=development nodemon --inspect-brk ./bin/www",
     "reinstall": "rm -rf node_modules && npm i",
     "test": "jest --detectOpenHandles",
-    "debug-jest": "node --inspect-brk node_modules/.bin/jest --runInBand jest tests/*.js"
+    "debug-jest": "node --inspect-brk node_modules/.bin/jest --runInBand jest tests/*/*.js"
   },
   "author": "Drew Palazzari",
   "license": "ISC",
